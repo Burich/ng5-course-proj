@@ -1,3 +1,9 @@
-<p>
-  mailbox works!
-</p>
+<div>
+  <input type="checkbox" name="cbAll">
+  <label for="cbAll">Все</label>
+  <button type="button">Delete</button>
+</div>
+<div *ngFor="let letter of letters">
+  <input type="checkbox">{{letter.author}}
+  <a routerLink="/mail/letter/{{letter.id}}">{{letter.title}}</a>
+</div>
