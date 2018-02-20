@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -13,7 +14,9 @@ import { AddrsComponent } from './addrs/addrs.component';
 import { AddAddrComponent } from './add-addr/add-addr.component';
 import { EditAddrComponent } from './edit-addr/edit-addr.component';
 import { MailPageComponent } from './mail-page/mail-page.component';
+
 import { AuthService } from './_service/auth.service';
+import { LettersService } from './_service/letters.service';
 
 @NgModule({
   declarations: [
@@ -30,10 +33,12 @@ import { AuthService } from './_service/auth.service';
 ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [
-    AuthService
+    AuthService,
+    LettersService
   ],
   bootstrap: [AppComponent]
 })

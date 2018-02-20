@@ -1,9 +1,13 @@
-<div>
-  <input type="checkbox" name="cbAll">
-  <label for="cbAll">Все</label>
-  <button type="button">Delete</button>
-</div>
-<div *ngFor="let letter of letters">
-  <input type="checkbox">{{letter.author}}
-  <a routerLink="/mail/letter/{{letter.id}}">{{letter.title}}</a>
-</div>
+<form [formGroup]="form">
+    <div>
+        <input type="checkbox" name="cbAll" (change)="setCheckBoxValues($event.target.checked)">
+        <label for="cbAll">Все</label>
+        <button type="button" (click)="deleteSelected()" *ngIf="canDelete">Delete</button>
+    </div>
+    <div formArrayName="letters">
+        <div *ngFor="let letter of letters; let i=index" [formGroupName]="i">
+            <input type="checkbox" formControlName="selected">{{letter.receiver}}
+            <a routerLink="/mail/letter/{{letter.id}}">{{letter.title}}</a>
+        </div>
+    </div>
+</form>

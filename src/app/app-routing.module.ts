@@ -22,12 +22,13 @@ const routes: Routes = [
       {path: '', redirectTo: '/mail/inbox', pathMatch: 'full'},
       {path: 'inbox', component: MailboxComponent},
       {path: 'outbox', component: MailboxComponent},
+      {path: 'spam', component: MailboxComponent},
       {path: 'users', component: AddrsComponent}
     ]},
   {path: 'mail/new', component: AddMailComponent, canActivate: [AuthGuardService]},
   {path: 'mail/letter/:id', component: LetterComponent, canActivate: [AuthGuardService]},
   {path: 'mail/users/new', component: AddAddrComponent, canActivate: [AuthGuardService]},
-  {path: 'mail/users/:id', component: EditAddrComponent, canActivate: [AuthGuardService]},
+  {path: 'mail/users/:email', component: EditAddrComponent, canActivate: [AuthGuardService]},
   {path: '**', component: NotFoundComponent}
 ];
 
