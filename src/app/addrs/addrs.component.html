@@ -1,7 +1,6 @@
-<button type="button">Add new</button>
-email Пользователь
+<button type="button">Add new</button> email Пользователь
 <div *ngFor="let user of users">
-  {{user.email}} {{user.author}}
-  <a routerLink="/mail/users/{{user.id}}">Edit</a>
-  <button type="button">Delete</button>
+    {{user.email}} {{user.author}}
+    <a routerLink="/mail/users/{{user.email}}">Edit</a>
+    <button type="button">Delete</button>
 </div>
