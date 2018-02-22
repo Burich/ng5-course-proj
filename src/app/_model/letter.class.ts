@@ -3,4 +3,5 @@ export class LetterModel {
     receiver: string;
     title: string;
     body: string;
+    box: string[];
 }

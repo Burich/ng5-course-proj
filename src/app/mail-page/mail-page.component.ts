@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { LettersService } from '../_service/letters.service';
+import { Router } from '@angular/router';
+
+import { BoxModel } from '../_model/box.class';
+
+// TODO: результаты поиска как отдельная страница
 
 @Component({
   selector: 'app-mail-page',
@@ -7,9 +13,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MailPageComponent implements OnInit {
 
-  constructor() { }
+  boxes: BoxModel[] = [];
+
+  constructor(
+    private letters: LettersService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
+    this.letters.getFolders().subscribe((folders) => {
+      this.boxes = folders;
+    });
   }
 
+  findLetters(text: string) {
+    // FIXME: если мы уже на результате поиска, результат не обновится
+    this.letters.scan(text).subscribe(_ => this.router.navigateByUrl('/mail/scan'));
+  }
 }

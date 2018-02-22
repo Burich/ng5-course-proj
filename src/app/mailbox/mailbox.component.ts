@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
@@ -7,12 +7,14 @@ import { LetterModel } from '../_model/letter.class';
 
 import { LettersService } from '../_service/letters.service';
 
+// TODO: показывать имена пользователей вместо почты, когда заданы
+
 @Component({
   selector: 'app-mailbox',
   templateUrl: './mailbox.component.html',
   styleUrls: ['./mailbox.component.css']
 })
-export class MailboxComponent implements OnInit {
+export class MailboxComponent {
   form: FormGroup;
 
   letters: LetterModel[] = [];
@@ -29,9 +31,6 @@ export class MailboxComponent implements OnInit {
         this.buildForm();
       });
     });
-  }
-
-  ngOnInit() {
   }
 
   buildForm() {
@@ -67,6 +66,7 @@ export class MailboxComponent implements OnInit {
   deleteSelected() {
     const arr = this.form.get('letters') as FormArray;
     const selected: number[] = [];
+
     for (let i = arr.length - 1; i >= 0; --i) {
       const value = arr.at(i).value;
       if (value['selected']) {
@@ -74,11 +74,6 @@ export class MailboxComponent implements OnInit {
         arr.removeAt(i);
       }
     }
-
-    for (const index of selected.sort().reverse()) {
-      arr.removeAt(index);
-    }
-
     this.canDelete = false;
     this.letterService.delete(this.route.snapshot.url.join(''), selected)
       .subscribe((letters) => {

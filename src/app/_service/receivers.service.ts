@@ -19,7 +19,7 @@ addReceiver(receiver: ReceiverModel): Observable<ReceiverModel[]> {
     });
 
     if (!!exist) {
-        exist.nickname = receiver.email;
+        exist.nickname = receiver.nickname;
     } else {
         this.receivers.push(receiver);
     }
@@ -29,6 +29,10 @@ addReceiver(receiver: ReceiverModel): Observable<ReceiverModel[]> {
 
 getAll(): Observable<ReceiverModel[]> {
     return Observable.of(this.receivers);
+}
+
+getReceiver(email: string): Observable<ReceiverModel> {
+    return Observable.of(this.receivers.find((user) => user.email === email));
 }
 
 delete(emails: string[]): Observable<ReceiverModel[]> {

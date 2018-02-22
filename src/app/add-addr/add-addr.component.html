@@ -1,3 +1,6 @@
-<p>
-  add-addr works!
-</p>
+<form [formGroup]="form">
+    <label>Email:</label><input type="text" formControlName="email">
+    <label>Nickname:</label><input type="text" formControlName="nickname">
+    <button type="button" (click)="addAddr()" [disabled]="!form.valid">{{newUser? 'Добавить': 'Изменить'}}</button>
+</form>
+<button type="button" (click)="goBack()">Назад</button> {{form.getRawValue() | json}} //TODO: подсказки по ограничениям

@@ -12,11 +12,11 @@ import { AddMailComponent } from './add-mail/add-mail.component';
 import { LetterComponent } from './letter/letter.component';
 import { AddrsComponent } from './addrs/addrs.component';
 import { AddAddrComponent } from './add-addr/add-addr.component';
-import { EditAddrComponent } from './edit-addr/edit-addr.component';
 import { MailPageComponent } from './mail-page/mail-page.component';
 
 import { AuthService } from './_service/auth.service';
 import { LettersService } from './_service/letters.service';
+import { ReceiversService } from './_service/receivers.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +28,6 @@ import { LettersService } from './_service/letters.service';
     LetterComponent,
     AddrsComponent,
     AddAddrComponent,
-    EditAddrComponent,
     MailPageComponent
 ],
   imports: [
@@ -38,7 +37,8 @@ import { LettersService } from './_service/letters.service';
   ],
   providers: [
     AuthService,
-    LettersService
+    LettersService,
+    ReceiversService
   ],
   bootstrap: [AppComponent]
 })

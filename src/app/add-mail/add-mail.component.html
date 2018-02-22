@@ -1,3 +1,7 @@
-<p>
-  add-mail works!
-</p>
+<form [formGroup]="form">
+    <label>Receiver:</label><input type="text" formControlName="receiver">
+    <label>Title:</label><input type="text" formControlName="title">
+    <label>Body:</label><input type="text" formControlName="body">// TODO: multiline
+    <button type="button" (click)="addMail()" [disabled]="!form.valid">Добавить</button>
+</form>
+<button type="button" (click)="goBack()">Назад</button> {{form.value | json}}

@@ -1,6 +1,15 @@
-<button type="button">Add new</button> email Пользователь
-<div *ngFor="let user of users">
-    {{user.email}} {{user.author}}
-    <a routerLink="/mail/users/{{user.email}}">Edit</a>
-    <button type="button">Delete</button>
-</div>
+<a routerLink="/mail/add-user"><button type="button">Add new</button></a>
+<form [formGroup]="form">
+    <div>
+        <input type="checkbox" name="cbAll" (change)="setCheckBoxValues($event.target.checked)">
+        <label for="cbAll">Все</label>
+        <button type="button" (click)="deleteSelected()" *ngIf="canDelete">Delete</button>
+    </div>
+    email Пользователь
+    <div formArrayName="users">
+        <div *ngFor="let user of receivers; let i=index" [formGroupName]="i">
+            <input type="checkbox" formControlName="selected"> {{user.email}} {{user.nickname}}
+            <a routerLink="/mail/users/{{user.email}}">Edit</a>
+        </div>
+    </div>
+</form>

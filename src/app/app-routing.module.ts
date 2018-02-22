@@ -8,7 +8,6 @@ import { AddMailComponent } from './add-mail/add-mail.component';
 import { LetterComponent } from './letter/letter.component';
 import { AddrsComponent } from './addrs/addrs.component';
 import { AddAddrComponent } from './add-addr/add-addr.component';
-import { EditAddrComponent } from './edit-addr/edit-addr.component';
 import { MailPageComponent } from './mail-page/mail-page.component';
 
 import { AuthGuardService } from './_service/auth-guard.service';
@@ -16,19 +15,17 @@ import { AuthGuardService } from './_service/auth-guard.service';
 const routes: Routes = [
   {path: '', redirectTo: '/mail/inbox', pathMatch: 'full'},
   {path: 'signin', component: SignPageComponent},
+  {path: 'mail/new', component: AddMailComponent, canActivate: [AuthGuardService]},
+  {path: 'mail/letter/:id', component: LetterComponent, canActivate: [AuthGuardService]},
+  {path: 'mail/add-user', component: AddAddrComponent, canActivate: [AuthGuardService]},
+  {path: 'mail/users/:email', component: AddAddrComponent, canActivate: [AuthGuardService]},
   {path: 'mail', component: MailPageComponent, canActivate: [AuthGuardService],
     canActivateChild: [AuthGuardService],
     children: [
       {path: '', redirectTo: '/mail/inbox', pathMatch: 'full'},
-      {path: 'inbox', component: MailboxComponent},
-      {path: 'outbox', component: MailboxComponent},
-      {path: 'spam', component: MailboxComponent},
-      {path: 'users', component: AddrsComponent}
+      {path: 'users', component: AddrsComponent},
+      {path: ':box', component: MailboxComponent}
     ]},
-  {path: 'mail/new', component: AddMailComponent, canActivate: [AuthGuardService]},
-  {path: 'mail/letter/:id', component: LetterComponent, canActivate: [AuthGuardService]},
-  {path: 'mail/users/new', component: AddAddrComponent, canActivate: [AuthGuardService]},
-  {path: 'mail/users/:email', component: EditAddrComponent, canActivate: [AuthGuardService]},
   {path: '**', component: NotFoundComponent}
 ];
 

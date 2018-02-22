@@ -6,7 +6,7 @@
     </div>
     <div formArrayName="letters">
         <div *ngFor="let letter of letters; let i=index" [formGroupName]="i">
-            <input type="checkbox" formControlName="selected">{{letter.receiver}}
+            <input type="checkbox" formControlName="selected"> {{letter.receiver}}
             <a routerLink="/mail/letter/{{letter.id}}">{{letter.title}}</a>
         </div>
     </div>
