@@ -15,7 +15,7 @@
             <textarea matInput placeholder="Тело" formControlName="body"></textarea>
         </mat-form-field>
     </div>
-    <button mat-button color="primary" (click)="addMail()" [disabled]="!form.valid">Добавить</button>
+    <button mat-button color="primary" (click)="addMail()" [disabled]="!form.valid">Отправить</button>
     <button mat-button color="primary" (click)="goBack()">Назад</button>
 </form>
 <mat-error *ngIf="!isValid('receiver')">
