@@ -4,10 +4,10 @@ import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 
 import { LetterModel } from '../_model/letter.class';
+import { ReceiverModel } from '../_model/receiver.class';
 
 import { LettersService } from '../_service/letters.service';
-
-// TODO: показывать имена пользователей вместо почты, когда заданы
+import { ReceiversService } from '../_service/receivers.service';
 
 @Component({
   selector: 'app-mailbox',
@@ -20,22 +20,27 @@ export class MailboxComponent {
   canDelete = false;
 
   letters: LetterModel[] = [];
+  receivers: ReceiverModel[] = [];
 
   columns: string[] = ['select', 'user', 'title'];
 
   constructor(
     private route: ActivatedRoute,
     private letterService: LettersService,
+    private receiverService: ReceiversService,
     private router: Router,
     private fb: FormBuilder
   ) {
     route.url.subscribe((url) => {
-      this.letterService.getLettersFor(url.join('')).subscribe((letters) => {
+      Promise.all([
+        this.letterService.getLettersFor(url.join('')).toPromise(),
+        this.receiverService.getAll().toPromise()
+      ]).then(([letters, receivers]) => {
         this.letters = letters;
+        this.receivers = receivers;
         this.buildForm();
       });
     });
-    // FIXME: при переходе к /mail/scan не перезагружается, если уже на ней
   }
 
   buildForm() {
@@ -84,6 +89,15 @@ export class MailboxComponent {
       .subscribe((letters) => {
         this.letters = letters;
       });
+  }
+
+  nickname(email: string) {
+    const nick = this.receivers.find((user) => user.email === email);
+    if (nick && nick.nickname) {
+      return nick.nickname;
+    } else {
+      return email;
+    }
   }
 
 }

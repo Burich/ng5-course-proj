@@ -1,11 +1,16 @@
 <form [formGroup]="form">    
     <div class="rows">
         <mat-form-field>
-            <input matInput placeholder="Получатель" formControlName="receiver">
-        </mat-form-field>   
+            <input matInput [matAutocomplete]="auto" placeholder="Получатель" formControlName="receiver">
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option.email">
+                    {{option.nickname}} ({{option.email}})
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>  
         <mat-form-field>
             <input matInput placeholder="Заголовок" formControlName="title">
-        </mat-form-field>   
+        </mat-form-field>     
         <mat-form-field>
             <textarea matInput placeholder="Тело" formControlName="body"></textarea>
         </mat-form-field>
@@ -13,3 +18,10 @@
     <button mat-button color="primary" (click)="addMail()" [disabled]="!form.valid">Добавить</button>
     <button mat-button color="primary" (click)="goBack()">Назад</button>
 </form>
+<mat-error *ngIf="!isValid('receiver')">
+    Получатель должен быть задан в формате email
+</mat-error> 
+<mat-error *ngIf="!isValid('title')">
+    В заголовке должно быть не меньше 4 символов
+</mat-error> 
+

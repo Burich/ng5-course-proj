@@ -5,11 +5,6 @@ import { ReceiverModel } from '../_model/receiver.class';
 
 import { ReceiversService } from '../_service/receivers.service';
 
-// TODO: практически дублирует mailbox.component
-// постараться вынести общую часть
-
-// TODO: вынести всё с конструкторов
-
 @Component({
   selector: 'app-addrs',
   templateUrl: './addrs.component.html',

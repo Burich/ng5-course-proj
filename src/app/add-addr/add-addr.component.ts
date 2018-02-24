@@ -8,8 +8,7 @@ import { ReceiversService } from '../_service/receivers.service';
 
 @Component({
   selector: 'app-add-addr',
-  templateUrl: './add-addr.component.html',
-  styleUrls: ['./add-addr.component.css']
+  templateUrl: './add-addr.component.html'
 })
 export class AddAddrComponent implements OnInit {
 
@@ -44,9 +43,6 @@ export class AddAddrComponent implements OnInit {
         }
       }
     });
-
-
-
   }
 
   addAddr() {
@@ -60,8 +56,9 @@ export class AddAddrComponent implements OnInit {
   goBack() {
     window.history.back();
   }
-}
+  isValid(name: string): boolean {
+    const control = this.form.get(name);
 
-// TODO: можно создани и редактирование делать одним компонентом, просто менять
-// текст кнопки по роуту и подгружать значение, если роут конкретный
-// 'mail/add-user' vs 'mail/users/:email'
+    return control.untouched || control.valid;
+  }
+}

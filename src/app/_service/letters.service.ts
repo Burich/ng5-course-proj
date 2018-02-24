@@ -73,7 +73,7 @@ scan(text: string): Observable<LetterModel[]> {
     for (const letter of this.letters) {
         letter.box = letter.box.filter((box) => box !== 'scan');
 
-        if (letter.body.indexOf(text) > -1) {
+        if (letter.body.toLowerCase().indexOf(text.toLowerCase()) > -1) {
             letter.box.push('scan');
         }
     }

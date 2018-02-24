@@ -12,3 +12,9 @@
     </button>
     <button mat-button color="primary" (click)="goBack()">Назад</button>
 </form>
+<mat-error *ngIf="!isValid('email')">
+    Email должен быть задан в формате email
+</mat-error> 
+<mat-error *ngIf="!isValid('nickname')">
+    Поле "Получатель" должно быть не короче 4 символов
+</mat-error> 

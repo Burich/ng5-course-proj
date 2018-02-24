@@ -4,8 +4,6 @@ import { Router } from '@angular/router';
 
 import { BoxModel } from '../_model/box.class';
 
-// TODO: результаты поиска как отдельная страница
-
 @Component({
   selector: 'app-mail-page',
   templateUrl: './mail-page.component.html',

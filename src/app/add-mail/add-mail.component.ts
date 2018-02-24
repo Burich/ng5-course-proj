@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+import { map, startWith } from 'rxjs/operators';
+import { Observable } from 'rxjs/Observable';
+
 import { LettersService } from '../_service/letters.service';
 import { ReceiversService } from '../_service/receivers.service';
 
-// TODO: Angular Material для стилей, полей ввода и автокомплита
+import { ReceiverModel } from '../_model/receiver.class';
 
 @Component({
   selector: 'app-add-mail',
@@ -14,6 +17,8 @@ import { ReceiversService } from '../_service/receivers.service';
 export class AddMailComponent implements OnInit {
 
   form: FormGroup;
+  options: ReceiverModel[] = [];
+  filteredOptions: Observable<ReceiverModel[]>;
 
   constructor(
     private fb: FormBuilder,
@@ -22,13 +27,28 @@ export class AddMailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.receivers.getAll().subscribe((users) => {
+      this.options = users;
+    });
+
     this.form = this.fb.group({
-      receiver: ['', [Validators.required]], // TODO: валидатор, проверяющий вхождение в
-      // зарегистрированных пользователей, или email!
-      // а лучше, чтобы даже по автокомплиту существующих, в поле вводился email
+      receiver: ['', [Validators.required, Validators.email]],
       title: ['', [Validators.required, Validators.minLength(4)]],
       body: ['']
     });
+
+    this.filteredOptions = this.form.get('receiver').valueChanges
+    .pipe(
+      startWith(''),
+      map(val => this.filter(val))
+    );
+  }
+
+  filter(val: string): ReceiverModel[] {
+    return this.options.filter(option =>
+      (option.email.toLowerCase().includes(val.toLowerCase())
+      || (option.nickname && option.nickname.toLowerCase().includes(val.toLowerCase()))
+    ));
   }
 
   addMail() {
@@ -52,6 +72,12 @@ export class AddMailComponent implements OnInit {
 
   goBack() {
     window.history.back();
+  }
+
+  isValid(name: string): boolean {
+    const control = this.form.get(name);
+
+    return control.untouched || control.valid;
   }
 
 }
