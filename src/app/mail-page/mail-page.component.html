@@ -1,9 +1,21 @@
-TODO: logo
-<input type="text" #text>
-<button type="button" (click)="findLetters(text.value)">Find (TODO: icon)</button>
-<div>
-    <a routerLink="/mail/new">Написать</a>
-    <a *ngFor="let box of boxes" [routerLink]="'/mail/' + box.link" routerLinkActive="activated">{{box.title}}</a>
-    <a routerLink="/mail/users" routerLinkActive="activated">Адресная книга</a>
+<div class="grid">
+    <div class="search">
+        <mat-form-field>
+            <input matInput placeholder="Найти в почте" #text>
+        </mat-form-field>
+        <button mat-icon-button color="primary" (click)="findLetters(text.value)"><mat-icon>find_in_page</mat-icon></button>
+    </div>
+    <div class="links">
+        <div *ngFor="let box of boxes">
+            <a [routerLink]="'/mail/' + box.link" routerLinkActive="activated"  [routerLinkActiveOptions]="{exact: true}">
+                <button type="button" color="primary" mat-button>{{box.title}}</button>
+            </a>
+        </div>
+        <a routerLink="/mail/users" routerLinkActive="activated" [routerLinkActiveOptions]="{exact: true}">
+            <button type="button" color="primary" mat-button>Адресная книга</button>
+        </a>
+    </div>
+    <div class="main">
+        <router-outlet></router-outlet>
+    </div>
 </div>
-<router-outlet></router-outlet>

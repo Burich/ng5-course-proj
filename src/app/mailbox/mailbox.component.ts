@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 
 import { LetterModel } from '../_model/letter.class';
@@ -17,12 +17,16 @@ import { LettersService } from '../_service/letters.service';
 export class MailboxComponent {
   form: FormGroup;
 
-  letters: LetterModel[] = [];
   canDelete = false;
+
+  letters: LetterModel[] = [];
+
+  columns: string[] = ['select', 'user', 'title'];
 
   constructor(
     private route: ActivatedRoute,
     private letterService: LettersService,
+    private router: Router,
     private fb: FormBuilder
   ) {
     route.url.subscribe((url) => {
@@ -31,6 +35,7 @@ export class MailboxComponent {
         this.buildForm();
       });
     });
+    // FIXME: при переходе к /mail/scan не перезагружается, если уже на ней
   }
 
   buildForm() {

@@ -27,7 +27,6 @@ export class MailPageComponent implements OnInit {
   }
 
   findLetters(text: string) {
-    // FIXME: если мы уже на результате поиска, результат не обновится
     this.letters.scan(text).subscribe(_ => this.router.navigateByUrl('/mail/scan'));
   }
 }

@@ -1,13 +1,34 @@
 <form [formGroup]="form">
-    <div>
-        <input type="checkbox" name="cbAll" (change)="setCheckBoxValues($event.target.checked)">
-        <label for="cbAll">Все</label>
-        <button type="button" (click)="deleteSelected()" *ngIf="canDelete">Delete</button>
-    </div>
-    <div formArrayName="letters">
-        <div *ngFor="let letter of letters; let i=index" [formGroupName]="i">
-            <input type="checkbox" formControlName="selected"> {{letter.receiver}}
-            <a routerLink="/mail/letter/{{letter.id}}">{{letter.title}}</a>
-        </div>
+        <a routerLink="/mail/new">
+            <button color="primary" mat-button>Написать</button>
+        </a>
+        <button mat-button color="primary" (click)="deleteSelected()" *ngIf="canDelete">
+            Удалить
+        </button>
+    <div class="mat-elevation-z8" formArrayName="letters">
+        <mat-table #table [dataSource]="letters">
+            <ng-container matColumnDef="select">
+                <mat-header-cell *matHeaderCellDef>
+                    <input type="checkbox" name="cbAll" (change)="setCheckBoxValues($event.target.checked)">
+                    <label for="cbAll">Все</label>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let letter; let i = index" [formGroupName]="i">
+                    <input type="checkbox" formControlName="selected">
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="user">
+                <mat-header-cell *matHeaderCellDef>Отправитель</mat-header-cell>
+                <mat-cell *matCellDef="let letter">{{letter.receiver}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="title">
+                <mat-header-cell *matHeaderCellDef>Наименование</mat-header-cell>
+                <mat-cell *matCellDef="let letter">
+                    <a routerLink="/mail/letter/{{letter.id}}">{{letter.title}}</a>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+        </mat-table>
     </div>
 </form>

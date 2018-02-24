@@ -1,1 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+:root {
+    padding: 5px;
+}
+
+.mat-table {
+    overflow: auto;
+}
+
+.mat-header-cell {
+    color: white;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+mat-row {
+    background-color: #eef1f4;
+}
+
+mat-header-row {
+    background-color: #3f51b5;
+}

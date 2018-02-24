@@ -21,6 +21,8 @@ export class AddrsComponent {
   receivers: ReceiverModel[] = [];
   canDelete = false;
 
+  columns: string[] = ['select', 'email', 'nickname'];
+
   constructor(
     private receiversService: ReceiversService,
     private fb: FormBuilder

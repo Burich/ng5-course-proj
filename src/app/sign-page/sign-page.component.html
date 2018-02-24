@@ -1,3 +1,8 @@
-<p>Имя пользователя: <input type="text" #login></p>
-<p>Пароль: <input type="text"></p>
-<button type="button" (click)="logIn(login.value)">Войти</button>
+<mat-form-field>
+    <input matInput placeholder="Имя пользователя" #login>
+</mat-form-field>
+<mat-form-field>
+    <input matInput placeholder="Пароль" type="password">
+</mat-form-field>
+
+<button mat-raised-button color="primary" (click)="logIn(login.value)">Войти</button>

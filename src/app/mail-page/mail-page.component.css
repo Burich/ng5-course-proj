@@ -1,3 +1,17 @@
-.activated {
-    color: red;
+.grid {
+    display: grid;
+    grid-template-columns: 160px auto;
+}
+
+.links {
+    grid-row: 1 / 3;
+}
+
+.links button {
+    text-align: left;
+}
+
+.activated button {
+    background-color: #3f51b5;
+    color: white;
 }

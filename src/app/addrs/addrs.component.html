@@ -1,15 +1,36 @@
-<a routerLink="/mail/add-user"><button type="button">Add new</button></a>
 <form [formGroup]="form">
-    <div>
-        <input type="checkbox" name="cbAll" (change)="setCheckBoxValues($event.target.checked)">
-        <label for="cbAll">Все</label>
-        <button type="button" (click)="deleteSelected()" *ngIf="canDelete">Delete</button>
-    </div>
-    email Пользователь
-    <div formArrayName="users">
-        <div *ngFor="let user of receivers; let i=index" [formGroupName]="i">
-            <input type="checkbox" formControlName="selected"> {{user.email}} {{user.nickname}}
-            <a routerLink="/mail/users/{{user.email}}">Edit</a>
-        </div>
+    <a routerLink="/mail/add-user">
+        <button color="primary" mat-button>Добавить</button>
+    </a>
+    <button mat-button color="primary" (click)="deleteSelected()" *ngIf="canDelete">
+        Удалить
+    </button>
+    <div class="mat-elevation-z8" formArrayName="users">
+        <mat-table #table [dataSource]="receivers">
+            <ng-container matColumnDef="select">
+                <mat-header-cell *matHeaderCellDef>
+                    <input type="checkbox" name="cbAll" (change)="setCheckBoxValues($event.target.checked)">
+                    <label for="cbAll">Все</label>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let user; let i = index" [formGroupName]="i">
+                    <input type="checkbox" formControlName="selected">
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="email">
+                <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+                <mat-cell *matCellDef="let user">{{user.email}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="nickname">
+                <mat-header-cell *matHeaderCellDef>Адресат</mat-header-cell>
+                <mat-cell *matCellDef="let user">{{user.nickname}}
+                    <a routerLink="/mail/users/{{user.email}}">
+                        <mat-icon>edit</mat-icon>
+                    </a>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+        </mat-table>
     </div>
 </form>

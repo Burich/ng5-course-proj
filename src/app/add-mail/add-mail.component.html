@@ -1,7 +1,15 @@
-<form [formGroup]="form">
-    <label>Receiver:</label><input type="text" formControlName="receiver">
-    <label>Title:</label><input type="text" formControlName="title">
-    <label>Body:</label><input type="text" formControlName="body">// TODO: multiline
-    <button type="button" (click)="addMail()" [disabled]="!form.valid">Добавить</button>
+<form [formGroup]="form">    
+    <div class="rows">
+        <mat-form-field>
+            <input matInput placeholder="Получатель" formControlName="receiver">
+        </mat-form-field>   
+        <mat-form-field>
+            <input matInput placeholder="Заголовок" formControlName="title">
+        </mat-form-field>   
+        <mat-form-field>
+            <textarea matInput placeholder="Тело" formControlName="body"></textarea>
+        </mat-form-field>
+    </div>
+    <button mat-button color="primary" (click)="addMail()" [disabled]="!form.valid">Добавить</button>
+    <button mat-button color="primary" (click)="goBack()">Назад</button>
 </form>
-<button type="button" (click)="goBack()">Назад</button> {{form.value | json}}
